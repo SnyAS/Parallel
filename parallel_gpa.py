@@ -10,3 +10,7 @@ def generatingGrade(years, student_nr):
         print("year ",year, "   - > studentID:",studentID, "   - > grade",grade)
         year_SubjectGrade.append((year, [studentID, grade]))
     return year_SubjectGrade
+
+user_years = int(input('Please Enter years(between 1 and 4) to calculate GPA: '))
+students = int(input('Please Enter number of students: '))
+yearly_grade = generatingGrade(years=user_years, student_nr=students)
