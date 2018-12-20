@@ -3,6 +3,7 @@ import numpy as np
 import datetime
 
 #import dataset, splitting on semic
+
 data = pd.read_csv('C:/Users/Inholland/Desktop/assignment2_parallel/student_Subject_grade.csv', sep=';')
 
 #start timer
@@ -13,23 +14,12 @@ grades_year_1 = data.iloc[:, 0:22].values
 grades_year_2 = data.iloc[:, np.r_[0, 23:41]].values
 grades_year_3 = data.iloc[:, np.r_[0, 42:48]].values
 grades_year_4 = data.iloc[:, np.r_[0, 49:58]].values
-'''
-gradesyear_1 = data.loc[:,'Introduction to IT','English 1','Network Fundamentals (CCNA 1)','Programming with Python 1','Precalculus','Study Career Coaching 1 (SCC)',
-               'Calculus 1',"Programming with Python 2",'Project Casual Graphics','Research 1','English 2','Routing Protocols and Concepts (CCNA 2)',
-               'DBMS 1','Calculus 2','Object Oriented Programming 1','Project Databases','Study Career Coaching 2 (SCC)','DBMS 2','Statistics 1','Linear Algebra']
-gradesyear_2 = data.loc[:,'LAN Switching and Wireless (CCNA 3)','English 3','Object Oriented Programming 2','Probability Theory','Study Career Coaching 3 (SCC)',
-               'Project Application Development','Software Engineering','UML','English 4','Geometr','Accessing the WAN (CCNA 4)','Graph Theory','Algorithms & Datastructures 1',
-               'Research 2','Study Career Coaching 4 (SCC)','Project Web Science','Numerical Analysis','Algorithms & Datastructures 2','English 5']
-gradesyear_3 = data.loc[:,'Internship','Research 3','Statistics 2','Operations Research','Elective/minor','Project Engineering Entrepreneurship','Study Career Coaching 5 (SCC)']
-gradesyear_4 = data.loc[:,'Advanced Data Disclosure','Data Mining & Analysis','Cryptography','Study Career Coaching 6 (SCC)',
-               'Research 4','Project Big Data','Business Intelligence','Distributed Systems and Parallel Computing','Emerging Technologies','Individual Project (Thesis)']
-'''
 
 #calculate the average of a student per year
 def clalculateYearAverage(year):
     #dictionary to hold output
    student_year_gpa={}
-    #iterate over all the student's grades in all years 
+    #iterate over all the student's grades in all years
    for x in year:
        #studentNumber/id
        ID = x[0]
@@ -51,18 +41,36 @@ year4 = clalculateYearAverage(year=grades_year_4)
 
 #disctionary for outputing studentID and average for 4 years
 total_student_average = {}
-
-#for each of the years look at the student number and make an average of all years
+#for each of the years look at the student number and zips their grades
 def common_entries(*dcts):
     #for each of the enteries looks at the intersection/communalities (studentid)
     for i in set(dcts[0]).intersection(*dcts[1:]):
-        yield (i,) + tuple(d[i] for d in dcts) 
-        #calculating the grade average for all the 4 years
-        average =((sum(tuple(d[i] for d in dcts)))/4)
-        #assigning the student the grade average
-        total_student_average[i] = average
-list(common_entries(year1, year2, year3, year4))
+        yield (i,) + tuple(d[i] for d in dcts)
 
+    return total_student_average
+    #return sorted(total_student_average.items(), key=lambda x: x[1])
+x = list(common_entries(year1, year2, year3, year4))
+
+#calculating student average
+for i, a, b, c, d in x:
+    avg = np.mean([a, b, c, d])
+    total_student_average[i]= avg
+import operator
+sorted_x = sorted(total_student_average.items(), key=operator.itemgetter(1), reverse=True)
+
+#write to file
+with open('grades.txt', 'w') as f:
+    f.write(str(sorted_x))
+
+
+''''
+In case of serialization
+
+import cPickle as pickle
+
+with open('file.txt', 'w') as file:
+     file.write(pickle.dumps(exDict)) # use `pickle.loads` to do the reverse
+'''
 #endtime
 end_time = datetime.datetime.now()
 #print time elapsed
