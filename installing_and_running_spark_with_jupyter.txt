@@ -1,0 +1,12 @@
+cd C:\Users\Home\AppData\Local\Programs\Python\Python37-32
+python -m pip install --upgrade pip
+python -m pip install findspark
+python -m pip install pyspark
+cd D:\spark\spark-2.2.1-bin-hadoop2.7
+python -m pip install jupyter
+python -m site --user-site
+python -m pip install jupyter
+python -c "import sys; print(sys.prefix)"
+python -c "import sys; print(sys.path)"
+cd C:\Users\Home\AppData\Local\Programs\Python\Python37-32\Scripts
+jupyter notebook
