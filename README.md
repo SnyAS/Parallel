@@ -3,6 +3,9 @@
 https://spark.apache.org/docs/2.2.0/rdd-programming-guide.html
 
 
+https://machinelearningnepal.com/2018/01/22/apache-spark-implementation-of-som-batch-algorithm/
+
+
 https://changhsinlee.com/install-pyspark-windows-jupyter/
 
 https://stackoverflow.com/questions/3402168/permanently-add-a-directory-to-pythonpath
