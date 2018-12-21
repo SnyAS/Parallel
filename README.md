@@ -1,5 +1,10 @@
 # Parallel
 
+#Tutorials
+https://www.programcreek.com/python/example/98233/pyspark.sql.functions.col
+
+
+
 https://spark.apache.org/docs/2.2.0/rdd-programming-guide.html
 
 
