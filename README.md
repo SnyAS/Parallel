@@ -14,6 +14,6 @@ https://stackoverflow.com/questions/3402168/permanently-add-a-directory-to-pytho
 https://jupyter.readthedocs.io/en/latest/running.html
 useful link
 
-
+https://www.extendoffice.com/documents/excel/642-excel-generate-random-string.html
 
 sc.parallelize(random_list_of_lists, 10).flatMap(lambda x: x).glom()                                                      .mapPartitions(execute_merge_sort_rdd).reduce(merge)
