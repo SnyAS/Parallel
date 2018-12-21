@@ -23,3 +23,24 @@ useful link
 https://www.extendoffice.com/documents/excel/642-excel-generate-random-string.html
 
 sc.parallelize(random_list_of_lists, 10).flatMap(lambda x: x).glom()                                                      .mapPartitions(execute_merge_sort_rdd).reduce(merge)
+
+
+import findspark
+findspark.init()
+from time import time
+from pyspark import SparkContext, SparkConf
+from pyspark.sql import Row
+from pyspark.sql import SparkSession
+import collections
+from pyspark.sql.functions import *
+from pyspark.ml.linalg import DenseVector
+from pyspark.ml.feature import StandardScaler
+from pyspark.ml import Pipeline
+from pyspark.sql import SparkSession
+import time
+
+sc = SparkContext(master='local[4]')
+from pyspark.sql import SQLContext
+sqlContext = SQLContext(sc)
+line = sc.textFile('C:/Users/Inholland/Desktop/assignment2_parallel/student_Subject_grade.csv')
+type(line)
