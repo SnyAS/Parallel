@@ -1,0 +1,34 @@
+import pandas as pd
+import numpy as np
+import datetime
+
+#import dataset, splitting on semic
+
+data1 = pd.read_csv('C:/Users/Inholland/Desktop/assignment2_parallel/NEW_DATASET/student_average_grade.csv', sep=";")
+data2= pd.read_csv('C:/Users/Inholland/Desktop/assignment2_parallel/NEW_DATASET/student_average_grade_1.csv', sep=";")
+data3= pd.read_csv('C:/Users/Inholland/Desktop/assignment2_parallel/NEW_DATASET/student_average_grade_2.csv', sep=";")
+data4 = pd.read_csv('C:/Users/Inholland/Desktop/assignment2_parallel/NEW_DATASET/student_average_grade_3.csv', sep=";")
+#start timer
+start_time = datetime.datetime.now()
+
+id = data1.loc[:,'ID']
+grade_average = data1.loc[:,'Grade_average']
+
+print(id)
+from collections import defaultdict
+total_grades = defaultdict(list)
+
+for i, j in zip(id,grade_average):
+    total_grades[i].append(j)
+
+new_dict={}
+for key,value in total_grades.items():
+    new_dict[key] = int(sum(value)/len(value))
+
+all_grades_average = int(sum(new_dict.values()) /len(new_dict.values()))
+print(all_grades_average)
+
+#endtime
+end_time = datetime.datetime.now()
+#print time elapsed
+print(end_time - start_time)
