@@ -1,0 +1,35 @@
+import datetime
+import operator
+import pandas as pd
+from os import listdir
+
+
+#start timer
+start_time = datetime.datetime.now()
+
+#finding all the csv files in a folder
+def find_csv_filenames( path_to_dir, suffix=".csv" ):
+    filenames = listdir(path_to_dir)
+    return [filename for filename in filenames if filename.endswith( suffix )]
+
+universityScore ={}
+files_path ='C:/Users/Inholland/Desktop/assignment2_parallel/DATASETS -USE -/'
+filenames = find_csv_filenames(files_path)
+for name in filenames:
+    datasetPath = files_path+name
+    data = pd.read_csv(datasetPath, sep=";")
+    columns = []
+    for i in data.columns:
+        columns.append(i)
+    columns.remove("student_ID")
+    data['avg'] = data[columns].mean(axis=1)
+    score = data['avg'].mean()
+    universityScore[name] = score
+
+sorted_x = sorted(universityScore.items(), key=operator.itemgetter(1), reverse=True)
+print(sorted_x)
+
+#endtime
+end_time = datetime.datetime.now()
+#print time elapsed
+print(end_time - start_time)
