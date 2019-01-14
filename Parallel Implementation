@@ -1,0 +1,29 @@
+import pyspark.sql.functions as fn
+from pyspark.sql import SparkSession, DataFrame
+
+field_list = ['Introduction to IT', 'English 1', 'Network Fundamentals (CCNA 1)', 'Programming with Python 1',
+              'Precalculus', 'Study Career Coaching 1 (SCC)', 'Calculus 1', 'Programming with Python 2',
+              'Project Casual Graphics', 'Logic', 'Research 1', 'English 2', 'Routing Protocols and Concepts (CCNA 2)',
+              'DBMS 1', 'Calculus 2', 'Object Oriented Programming 1', 'Project Databases',
+              'Study Career Coaching 2 (SCC)', 'DBMS 2', 'Statistics 1', 'Linear Algebra',
+              'LAN Switching and Wireless (CCNA 3)', 'English 3', 'Object Oriented Programming 2', 'Probability Theory',
+              'Study Career Coaching 3 (SCC)', 'Project Application Development', 'Software Engineering', 'UML',
+              'English 4', 'Geometry', 'Accessing the WAN (CCNA 4)', 'Graph Theory', 'Algorithms & Datastructures 1',
+              'Research 2', 'Study Career Coaching 4 (SCC)', 'Project Web Science', 'Numerical Analysis',
+              'Algorithms & Datastructures 2', 'English 5', 'Internship', 'Research 3', 'Statistics 2',
+              'Operations Research', 'Elective/minor', 'Project Engineering Entrepreneurship',
+              'Study Career Coaching 5 (SCC)', 'Advanced Data Disclosure', 'Data Mining & Analysis', 'Cryptography',
+              'Study Career Coaching 6 (SCC)', 'Research 4', 'Project Big Data', 'Business Intelligence',
+              'Distributed Systems and Parallel Computing', 'Emerging Technologies', 'Individual Project (Thesis)']
+
+if __name__ == '__main__':
+    spark = SparkSession.builder.master("local[*]").appName("University Ranking").getOrCreate()
+    sparkContext = spark.sparkContext
+
+    df = spark.read.options(header='true', inferschema='true', delimiter=',').csv("data/*.csv").cache()
+
+    df = df.withColumn('total', sum(df[col] for col in field_list))
+    df = df.withColumn('GPA', df['total'].cast('float') / 57).select('student_ID', 'total', 'GPA', df["University"])  # type: DataFrame
+    df.summary().show()
+    df = df.groupBy(df["University"]).agg(fn.avg('GPA').alias('GPA'))
+    df.show(5)
