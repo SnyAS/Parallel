@@ -1,0 +1,17 @@
+import pandas as pd
+from os import listdir
+
+#finding all the csv files in a folder
+def find_csv_filenames( path_to_dir, suffix=".csv" ):
+    filenames = listdir(path_to_dir)
+    return [filename for filename in filenames if filename.endswith( suffix )]
+
+universityScore ={}
+files_path ='C:/Users/Home/Desktop/DATASETS -USE -/'
+path = 'C:/Users/Home/Desktop/data/'
+filenames = find_csv_filenames(files_path)
+for name in filenames:
+    datasetPath = files_path+name
+    df = pd.read_csv(datasetPath, sep=";")
+    df.insert(1, 'University', 'University')
+    df.to_csv(path+name, sep=',', index=False)
