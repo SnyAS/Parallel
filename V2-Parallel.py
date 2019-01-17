@@ -9,11 +9,11 @@ if __name__ == '__main__':
     spark = SparkSession.builder.master("local[*]").appName("University Ranking").getOrCreate()
     sparkContext = spark.sparkContext
     #importing/reading all csv files
-    df = spark.read.options(header='true', inferschema='true', delimiter=',').csv("C:/Users/..../Documents/semidas_data/data/*.csv")  # type: DataFrame
+    df = spark.read.options(header='true', inferschema='true', delimiter=',').csv("data/*.csv")  # type: DataFrame
     #start time
     time_start = time.time()
     #This is the implementation for getting the columns which hold the subject grades for the students
-    df1 = spark.read.options(header='true', inferschema='true', delimiter=',').csv("C:/Users/..../Documents/semidas_data/data/University_.csv")
+    df1 = spark.read.options(header='true', inferschema='true', delimiter=',').csv("data/University_.csv")
     #drop thes 2 columns to get only the columns with the subjectcs
     df1 = df1.drop("Student_ID")
     df1 = df1.drop("University")
@@ -33,7 +33,7 @@ if __name__ == '__main__':
     df4 = df3.transform(lambda dframe: dframe.groupBy(dframe["University"]).agg(fn.avg('GPA').alias('Score')))
     df5 = df4.transform(lambda dframe: dframe.sort(dframe['Score'].desc()))#Ranking the universities based on their score
     elapsedTime = str(time.time() - time_start)#calculate the time elapsed
-    print("The top 5 Universities are ranked as following: ", df2.show(5))#printing the top 5 universities
+    print("The top 5 Universities are ranked as following: ", df5.show(5))#printing the top 5 universities
     print("The elapsed time for this algorithm is ", elapsedTime)#print time elapsed
 
 
