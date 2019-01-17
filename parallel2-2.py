@@ -35,6 +35,7 @@ if __name__ == '__main__':
         .transform(lambda dframe: dframe.sort(dframe['Score'].desc()))
 		
 	/* broken down
+	df = df.transform(lambda dframe: dframe.withColumn('total', sum(dframe[col] for col in names.values)))
 	df2 = df.transform(lambda dframe: dframe.withColumn('GPA', dframe['total'].cast('float') / len(df1)))
 	df3 = df2.transform(lambda dframe: dframe.select('student_ID', 'total', 'GPA', dframe["University"]))
 	#expensive
