@@ -11,11 +11,11 @@ if __name__ == '__main__':
     spark = SparkSession.builder.master("local[*]").appName("University Ranking").getOrCreate()
     sparkContext = spark.sparkContext
 	
-    df = spark.read.options(header='true', inferschema='true', delimiter=',').csv("C:/Users/Swatarianess/Documents/semidas_data/data/*.csv")  # type: DataFrame
+    df = spark.read.options(header='true', inferschema='true', delimiter=',').csv("C:/Users/.../Documents/semidas_data/data/*.csv")  # type: DataFrame
     time_start = time.time()
 	
 	/* This is the implementation for getting the columns which hold the subject grades for the students
-	df1 = spark.read.options(header='true', inferschema='true', delimiter=',').csv("C:/Users/Swatarianess/Documents/semidas_data/data/University_.csv")
+	df1 = spark.read.options(header='true', inferschema='true', delimiter=',').csv("C:/Users/.../Documents/semidas_data/data/University_.csv")
 	df1 = df1.drop("Student_ID")
 	df1 = df1.drop("University")
 	print(df1.columns)
