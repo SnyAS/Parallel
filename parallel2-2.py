@@ -16,7 +16,7 @@ if __name__ == '__main__':
 	
 	""" This is the implementation for getting the columns which hold the subject grades for the students
 	df1 = spark.read.options(header='true', inferschema='true', delimiter=',').csv("C:/Users/..../Documents/semidas_data/data/University_.csv")
-	df1 = df1.drop("Student_ID")
+	df1 = df1.drop("student_ID")
 	df1 = df1.drop("University")
 	print(df1.columns)
 	#appending to a list the column names
