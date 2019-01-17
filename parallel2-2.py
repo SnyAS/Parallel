@@ -14,7 +14,7 @@ if __name__ == '__main__':
     df = spark.read.options(header='true', inferschema='true', delimiter=',').csv("C:/Users/..../Documents/semidas_data/data/*.csv")  # type: DataFrame
     time_start = time.time()
 	
-	/* This is the implementation for getting the columns which hold the subject grades for the students
+	""" This is the implementation for getting the columns which hold the subject grades for the students
 	df1 = spark.read.options(header='true', inferschema='true', delimiter=',').csv("C:/Users/..../Documents/semidas_data/data/University_.csv")
 	df1 = df1.drop("Student_ID")
 	df1 = df1.drop("University")
@@ -24,7 +24,7 @@ if __name__ == '__main__':
 	for name in df1.columns:
 		names.append(name)
 	print(names)
-	*/
+	"""
 	
     # Calculating the University score based on the students's average
     df = df\
@@ -34,14 +34,14 @@ if __name__ == '__main__':
         .transform(lambda dframe: dframe.groupBy(dframe["University"]).agg(fn.avg('GPA').alias('Score'))) \
         .transform(lambda dframe: dframe.sort(dframe['Score'].desc()))
 		
-	/* broken down
+	"""# broken down
 	df = df.transform(lambda dframe: dframe.withColumn('total', sum(dframe[col] for col in names.values)))
 	df2 = df.transform(lambda dframe: dframe.withColumn('GPA', dframe['total'].cast('float') / len(df1)))
 	df3 = df2.transform(lambda dframe: dframe.select('student_ID', 'total', 'GPA', dframe["University"]))
 	#expensive
 	df4 = df3.transform(lambda dframe: dframe.groupBy(dframe["University"]).agg(fn.avg('GPA').alias('Score')))
 	df5 = df4.transform(lambda dframe: dframe.sort(dframe['Score'].desc()))
-	*/
+	"""
 	
     #calculate the time elapsed
 	elapsedTime = str(time.time() - time_start)
